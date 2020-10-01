@@ -1,0 +1,26 @@
+#code starts from next line
+from pathlib import Path
+from PyPDF2 import PdfFileMerger
+#master file
+report = "Report.pdf"
+
+#add-on files to be inserted into the master file
+file1 = "attachment1.pdf"
+file2 = "attachment2.pdf"
+file3 = "attachment3.pdf"
+file4 = "attachment4.pdf"
+file5 = "attachment5.pdf"
+
+pdf_merger = PdfFileMerger()
+pdf_merger.append(str(report))
+
+"""number denotes the position(page number) where the add-on files need to be inserted into the master file"""
+pdf_merger.merge(8, str(file1))
+pdf_merger.merge(9, str(file2))
+pdf_merger.merge(10, str(file3))
+pdf_merger.merge(11, str(file4))
+pdf_merger.merge(15, str(file5))
+
+#output file will be compiled as a single 'Compiled_Report.pdf'
+with Path("Compiled_Report.pdf").open(mode="wb") as output_file:
+pdf_merger.write(output_file)
